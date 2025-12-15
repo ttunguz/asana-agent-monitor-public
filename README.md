@@ -40,6 +40,11 @@ AI-powered Asana task automation with natural language processing.
    ruby bin/monitor.rb
    ```
 
+## Deployment
+
+- **Dedicated Mac (Recommended)**: Run on a dedicated Mac for 24/7 monitoring. See [MACOS_SETUP_GUIDE.md](MACOS_SETUP_GUIDE.md).
+- **Cloud**: Can be deployed to AWS, DigitalOcean, or Fly.io. See [DEPLOYMENT_OPTIONS.md](DEPLOYMENT_OPTIONS.md).
+
 ## Configuration
 
 See `config/config.example.yml` for detailed configuration options.

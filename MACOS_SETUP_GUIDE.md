@@ -1,7 +1,7 @@
-# Asana Agent Monitor - M1 Mac Setup Guide
+# Asana Agent Monitor - macOS Setup Guide
 
 ## Purpose
-Set up your M1 Mac to run the Asana agent monitor 24/7 while your primary laptop sleeps. This ensures continuous task processing without relying on your main machine being awake.
+Set up your Mac to run the Asana agent monitor 24/7. This ensures continuous task processing without relying on your primary machine being awake.
 
 ## Architecture Overview
 
@@ -10,20 +10,20 @@ Set up your M1 Mac to run the Asana agent monitor 24/7 while your primary laptop
 - Polls Asana every 3 minutes
 - Stops when laptop sleeps
 
-**Target Setup (M1 Mac)**:
+**Target Setup (Dedicated Mac)**:
 - Always-on monitoring (screen off, computer awake)
 - Same LaunchAgent daemon architecture
 - Isolated environment for security
 
 ## Setup Options Comparison
 
-### Option 1: M1 Mac Always-On (RECOMMENDED)
+### Option 1: Dedicated Mac (RECOMMENDED)
 **Pros:**
 - Physical hardware you control
 - No monthly costs
 - Better security (local network only)
 - Easier debugging & monitoring
-- Simple energy consumption (~10W idle)
+- Simple energy consumption (~10W idle for M1/M2)
 
 **Cons:**
 - Single point of failure (but can keep primary as backup)
@@ -44,11 +44,11 @@ Set up your M1 Mac to run the Asana agent monitor 24/7 while your primary laptop
 - Need to manage SSH keys, firewall rules
 - API keys on remote server
 
-**Recommendation**: Start with Option 1 (M1 Mac). It's simpler, cheaper, & more secure for a personal monitoring system.
+**Recommendation**: Start with Option 1 (Dedicated Mac). It's simpler, cheaper, & more secure for a personal monitoring system.
 
 ---
 
-## M1 Mac Setup Instructions
+## macOS Setup Instructions
 
 ### Phase 1: Prerequisites
 
@@ -98,8 +98,8 @@ git clone <your-repo-url> ~/Documents/coding/asana-agent-monitor
 cd ~/Documents/coding/asana-agent-monitor
 tar -czf asana-monitor.tar.gz .
 
-# Transfer to M1 (use AirDrop, USB drive, or network)
-# On M1:
+# Transfer to Target Mac (use AirDrop, USB drive, or network)
+# On Target Mac:
 mkdir -p ~/Documents/coding/asana-agent-monitor
 cd ~/Documents/coding/asana-agent-monitor
 tar -xzf ~/Downloads/asana-monitor.tar.gz
@@ -300,7 +300,7 @@ chmod 600 ~/.asana-monitor-env
 ```
 
 ### 3. Physical Security
-- Keep M1 Mac in a secure location
+- Keep Mac in a secure location
 - Set strong user password
 - Enable FileVault encryption:
   ```bash
@@ -309,7 +309,7 @@ chmod 600 ~/.asana-monitor-env
 
 ### 4. API Key Rotation (Recommended)
 - Rotate API keys every 90 days
-- Use separate API keys for M1 Mac (if providers support it)
+- Use separate API keys for the dedicated Mac (if providers support it)
 - Monitor API usage for anomalies
 
 ### 5. SSH Access (Optional but Recommended)
@@ -318,7 +318,7 @@ chmod 600 ~/.asana-monitor-env
 sudo systemsetup -setremotelogin on
 
 # Add SSH key from primary laptop
-ssh-copy-id YOUR_USERNAME@m1-mac-local-ip
+ssh-copy-id YOUR_USERNAME@mac-server-local-ip
 
 # Disable password authentication
 sudo nano /etc/ssh/sshd_config
@@ -493,7 +493,7 @@ top -l 1 | grep -E "(PhysMem|CPU)"
 $VERBOSE = true
 ```
 
-### M1 Mac Sleeping Despite Settings
+### Mac Sleeping Despite Settings
 ```bash
 # Verify caffeinate is running
 ps aux | grep caffeinate
@@ -514,7 +514,7 @@ Keep LaunchAgent on primary laptop disabled:
 launchctl unload ~/Library/LaunchAgents/com.theory.asana-monitor.plist
 ```
 
-If M1 fails, re-enable:
+If Dedicated Mac fails, re-enable:
 ```bash
 launchctl load ~/Library/LaunchAgents/com.theory.asana-monitor.plist
 ```
@@ -536,8 +536,8 @@ tar -czf asana-monitor-backup-$(date +%Y%m%d).tar.gz \
 
 ## Cost Analysis
 
-### M1 Mac Always-On
-- **Power consumption**: ~10W idle (M1 efficiency)
+### Dedicated Mac (Always-On)
+- **Power consumption**: ~10W idle (Apple Silicon efficiency)
 - **Annual electricity**: 10W × 24h × 365d = 87.6 kWh
 - **Cost**: 87.6 kWh × $0.12/kWh = **$10.51/year**
 
@@ -546,7 +546,7 @@ tar -czf asana-monitor-backup-$(date +%Y%m%d).tar.gz \
 - **AWS Lightsail**: $5/month = **$60/year**
 - **Fly.io**: $2-5/month = **$24-60/year** (hobby tier)
 
-**Savings with M1**: $50-60/year + full control
+**Savings with Dedicated Mac**: $50-60/year + full control
 
 ---
 

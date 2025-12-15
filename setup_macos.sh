@@ -1,12 +1,12 @@
 #!/bin/bash
 #
-# Asana Agent Monitor - M1 Mac Setup Script
+# Asana Agent Monitor - macOS Setup Script
 #
-# This script automates the setup of the Asana Agent Monitor on an M1 Mac
+# This script automates the setup of the Asana Agent Monitor on a Mac
 # for 24/7 operation. It handles dependencies, security configuration, and
 # LaunchAgent setup.
 #
-# Usage : ./setup_m1.sh [--skip-homebrew] [--skip-ruby] [--source-path PATH]
+# Usage : ./setup_macos.sh [--skip-homebrew] [--skip-ruby] [--source-path PATH]
 #
 # Options :
 #   --skip-homebrew     Skip Homebrew installation (if already installed)
@@ -117,9 +117,9 @@ get_username() {
 
 # Main script starts here
 clear
-print_header "Asana Agent Monitor - M1 Mac Setup"
+print_header "Asana Agent Monitor - macOS Setup"
 
-echo "This script will set up your M1 Mac for 24/7 Asana monitoring."
+echo "This script will set up your Mac for 24/7 Asana monitoring."
 echo "Setup time : approximately 15-30 minutes"
 echo ""
 echo "What will be configured :"
@@ -251,7 +251,7 @@ if [ ! -d "$PROJECT_PATH" ]; then
     echo "    cd ~/Documents/coding/asana-agent-monitor"
     echo "    tar -czf asana-monitor.tar.gz ."
     echo "  Transfer file via AirDrop, USB, or network"
-    echo "  On M1 Mac :"
+    echo "  On target Mac :"
     echo "    tar -xzf asana-monitor.tar.gz -C $PROJECT_PATH"
     echo ""
     echo "Option B : Git clone"
@@ -594,7 +594,7 @@ echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━
 echo -e "${GREEN}                    🎉 Setup Successful! 🎉${NC}"
 echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
-echo "Your M1 Mac is now configured for 24/7 Asana monitoring."
+echo "Your Mac is now configured for 24/7 Asana monitoring."
 echo ""
 echo -e "${BLUE}📊 Status Check :${NC}"
 echo "  LaunchAgent : $(launchctl list | grep -q asana-monitor && echo '✅ Running' || echo '❌ Not running')"
@@ -629,9 +629,9 @@ echo "  3. Wait 3 minutes"
 echo "  4. Check for agent response in task comments"
 echo ""
 echo -e "${BLUE}📖 Documentation :${NC}"
-echo "  Full guide : $PROJECT_PATH/M1_SETUP_GUIDE.md"
+echo "  Full guide : $PROJECT_PATH/MACOS_SETUP_GUIDE.md"
 echo "  Security : $PROJECT_PATH/SECURITY_HARDENING.md"
-echo "  Troubleshooting : See M1_SETUP_GUIDE.md section"
+echo "  Troubleshooting : See MACOS_SETUP_GUIDE.md section"
 echo ""
 echo -e "${YELLOW}⚠️  Next Steps :${NC}"
 echo "  1. Complete Energy Saver settings (if not done)"
