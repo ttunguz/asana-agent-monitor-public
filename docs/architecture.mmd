@@ -1,0 +1,48 @@
+graph LR
+    subgraph "Configuration Layer"
+        ConfigYML[config.yml]
+        EnvVars[Environment Variables]
+        ConfigYML --> AgentConfig[AgentConfig Module]
+        EnvVars --> AgentConfig
+    end
+
+    subgraph "Core Agent"
+        AgentConfig --> AgentMonitor[AgentMonitor]
+        AgentMonitor --> WorkflowRouter[WorkflowRouter]
+        AgentMonitor --> TaskTracker[ProcessedTasksTracker]
+    end
+
+    subgraph "LLM Layer"
+        WorkflowRouter --> BaseClient[BaseClient Factory]
+        BaseClient --> GeminiClient[GeminiClient]
+        BaseClient --> ClaudeClient[ClaudeClient]
+        BaseClient --> OpenAIClient[OpenAIClient]
+        BaseClient --> PerplexityClient[PerplexityClient]
+    end
+
+    subgraph "Workflow Layer"
+        WorkflowRouter --> GeminiCode[GeminiCode Workflow]
+        GeminiCode --> GeneralSearch[GeneralSearch]
+        GeminiCode --> ArticleSummary[ArticleSummary]
+        GeminiCode --> EmailDraft[EmailDraft]
+        GeminiCode --> NewsletterSummary[NewsletterSummary]
+        GeminiCode --> OpenURL[OpenURL]
+    end
+
+    subgraph "External APIs"
+        GeneralSearch --> AsanaAPI[Asana API]
+        ArticleSummary --> AsanaAPI
+        EmailDraft --> AsanaAPI
+        NewsletterSummary --> AsanaAPI
+        OpenURL --> AsanaAPI
+
+        GeminiClient --> GeminiAPI[Google Gemini API]
+        ClaudeClient --> ClaudeAPI[Anthropic API]
+        OpenAIClient --> OpenAIAPI[OpenAI API]
+        PerplexityClient --> PerplexityAPI[Perplexity API]
+    end
+
+    style AgentConfig fill:#FFE4B5
+    style BaseClient fill:#87CEEB
+    style GeminiCode fill:#DDA0DD
+    style AsanaAPI fill:#90EE90

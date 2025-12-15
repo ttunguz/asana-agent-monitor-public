@@ -1,0 +1,16 @@
+[Unit]
+Description=Asana Agent Monitor Service
+After=network.target
+
+[Service]
+Type=simple
+User=yourusername
+WorkingDirectory=/path/to/asana-agent-monitor
+ExecStart=/usr/bin/ruby bin/monitor.rb
+Restart=always
+RestartSec=10
+Environment="ASANA_API_KEY=your_key_here"
+Environment="GEMINI_API_KEY=your_key_here"
+
+[Install]
+WantedBy=multi-user.target

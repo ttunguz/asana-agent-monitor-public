@@ -1,0 +1,54 @@
+# Asana Agent Monitor Configuration
+
+# Asana Settings
+asana:
+  # Your Asana Personal Access Token
+  # Can also be set via ASANA_API_KEY environment variable
+  api_key: "<YOUR_ASANA_API_KEY>"
+  
+  # List of Project GIDs to monitor
+  # You can find the GID in the URL of the project: app.asana.com/0/PROJECT_GID/list
+  project_gids: 
+    - "1234567890123456"
+  
+  # Your Workspace GID
+  workspace_gid: "1234567890123456"
+  
+  # Agent Name (used to identify comments made by the bot)
+  agent_name: "AI Agent"
+
+# Assignee Mapping (User Name => Asana GID)
+# Used to assign tasks to specific people
+assignees:
+  tom: "1234567890"
+  art: "0987654321"
+
+# Monitoring Settings
+monitoring:
+  # How often to check for new tasks/comments (in minutes)
+  check_interval_minutes: 3
+  
+  # Enable monitoring of comments on existing tasks
+  enable_comment_monitoring: true
+  
+  # Max concurrent worker threads
+  max_concurrent_workers: 5
+  
+  # Task processing timeout (seconds)
+  task_timeout: 300
+
+# AI Provider Settings
+ai:
+  # Provider: gemini, claude, openai, or perplexity
+  provider: "gemini"
+  
+  # API Keys (Can also be set via environment variables)
+  gemini_api_key: ""
+  claude_api_key: ""
+  openai_api_key: ""
+  perplexity_api_key: ""
+
+# Logging Settings
+logging:
+  log_level: "info"
+  log_dir: "./logs"
