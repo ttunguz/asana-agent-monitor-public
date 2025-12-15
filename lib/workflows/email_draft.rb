@@ -51,8 +51,9 @@ module Workflows
       text = "#{task.name} #{task.notes}".strip
 
       # Try to find email address first
-      if text.match?(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/)
-        email = text.match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/)[0]
+      # Validates standard email format
+      if text.match?(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/)
+        email = text.match(/([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})/)[0]
         return { success: true, recipient: email, type: :email }
       end
 
@@ -75,8 +76,8 @@ module Workflows
       # Look for "about [subject]" pattern
       text = "#{task.name} #{task.notes}"
 
-      if text.match?(/about\s+(.+?)(\.||$)/i)
-        text.match(/about\s+(.+?)(\.||$)/i)[1].strip
+      if text.match?(/about\s+(.+)(\.|$)/i)
+        text.match(/about\s+(.+)(\.|$)/i)[1].strip
       else
         "Follow-up"
       end

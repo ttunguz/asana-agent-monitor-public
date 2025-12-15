@@ -67,9 +67,9 @@ module Workflows
       text = "#{task.name} #{task.notes}".downcase
 
       # Try to extract number of days
-      if text.match?(/last\s+(\d+)\s+days?)
+      if text.match?(/last\s+(\d+)\s+days?/)
         text.match(/last\s+(\d+)\s+days?/)[1].to_i
-      elsif text.match?(/past\s+(\d+)\s+days?)
+      elsif text.match?(/past\s+(\d+)\s+days?/)
         text.match(/past\s+(\d+)\s+days?/)[1].to_i
       elsif text.match?(/this week/)
         7
